@@ -31,7 +31,6 @@
 
 #include <opencv2/core.hpp>
 
-
 namespace cv {
 namespace ccm {
 

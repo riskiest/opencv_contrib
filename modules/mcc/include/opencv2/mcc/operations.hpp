@@ -82,10 +82,32 @@ public:
     virtual ~Operations() {};
 
     /* *\ brief add function will conbine this operation with  other  transformation operations*/
-    Operations& add(const Operations& other);
+    Operations& add(const Operations& other)
+    {
+        ops.insert(ops.end(), other.ops.begin(), other.ops.end());
+        return *this;
+    };
 
     /* *\ brief run operations to make color conversion*/
-    CV_WRAP cv::Mat run(cv::Mat abc);
+    cv::Mat run(cv::Mat abc)
+    {
+        Operation hd;
+        for (auto& op : ops)
+        {
+            if (op.linear)
+            {
+                hd.add(op);
+            }
+            else
+            {
+                abc = hd(abc);
+                hd.clear();
+                abc = op(abc);
+            }
+        }
+        abc = hd(abc);
+        return abc;
+    };
 };
 
 const Operations IDENTITY_OPS{ IDENTITY_OP };
