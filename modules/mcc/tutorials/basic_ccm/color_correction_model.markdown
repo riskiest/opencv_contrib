@@ -209,9 +209,9 @@ The ColorChecker Matrix with the size of Nx1, type of cv::Mat.
 @code{.cpp}
 
  Color color = Macbeth_D65_2;
- 
+
  // If you use a customized ColorChecker, make sure to define the Color instance with your own reference color values and corresponding color space:
- 
+
  // Color color(ref_color_values, color_space);
 
  // If you use a customized ColorChecker, make sure to define the Color instance with your own reference color values and corresponding color space:

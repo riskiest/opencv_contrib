@@ -196,7 +196,6 @@ public:
 
 private:
     void setParameter() CV_OVERRIDE;
-
 };
 
 /* *\ brief Adobe RGB color space.
@@ -220,7 +219,6 @@ public:
 
 private:
     void setParameter() CV_OVERRIDE;
-
 };
 
 /* *\ brief ProPhoto RGB color space.
