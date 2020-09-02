@@ -1,7 +1,6 @@
 Color Correction Model {#tutorial_table_of_content_ccm}
 ===========================
-
--   @subpage tutorial_ccm_color_correction_model
+@subpage tutorial_ccm_color_correction_model
 
     *Author:* riskiest, shanchenqi, JinhengZhang
 
