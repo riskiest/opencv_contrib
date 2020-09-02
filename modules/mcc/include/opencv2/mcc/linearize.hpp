@@ -76,7 +76,7 @@ public:
     }
 
     virtual ~Polyfit() {};
-    
+
     cv::Mat operator()(const cv::Mat& inp)
     {
         return elementWise(inp, [this](double a)->double {return fromEW(a); });

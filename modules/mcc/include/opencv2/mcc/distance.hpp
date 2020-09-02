@@ -205,7 +205,7 @@ double deltaCMC(cv::Vec3d lab1, cv::Vec3d lab2, double kL, double kC) {
     double C2 = sqrt(pow(lab2[1], 2.0) + pow(lab2[2], 2.0));
     double dC = C2 - C1;
     double dH = sqrt(pow(da, 2) + pow(db, 2) - pow(dC, 2));
-  
+
     double H1;
     if (C1 == 0.) {
       H1 = 0.0;
@@ -213,7 +213,7 @@ double deltaCMC(cv::Vec3d lab1, cv::Vec3d lab2, double kL, double kC) {
       H1 = atan2(lab1[2], lab1[1]);
       if (H1 < 0.0) H1 += 2. * CV_PI;
     }
-  
+
     double F = pow(C1, 2) / sqrt(pow(C1, 4) + 1900);
     double T = (H1 > toRad(164) && H1 <= toRad(345))
                    ? 0.56 + abs(0.2 * cos(H1 + toRad(168)))
@@ -224,7 +224,7 @@ double deltaCMC(cv::Vec3d lab1, cv::Vec3d lab2, double kL, double kC) {
     ;
     double sC = (0.0638 * C1) / (1.0 + 0.0131 * C1) + 0.638;
     double sH = sC * (F * T + 1.0 - F);
-  
+
     return sqrt(pow(dL / (kL * sL), 2.0) + pow(dC / (kC * sC), 2.0) +
                 pow(dH / sH, 2.0));
 }

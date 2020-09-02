@@ -44,7 +44,7 @@ namespace ccm
 class IO
 {
 public:
-   
+
     std::string illuminant;
     std::string observer;
 
@@ -55,7 +55,7 @@ public:
     virtual ~IO() {};
 
     bool operator<(const IO& other) const
-    { 
+    {
         return (illuminant < other.illuminant || ((illuminant == other.illuminant) && (observer < other.observer)));
     }
 

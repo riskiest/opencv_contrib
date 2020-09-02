@@ -312,7 +312,7 @@ private:
 class sRGB_ :public sRGBBase_
 {
 public:
-    sRGB_(bool linear) :sRGBBase_(D65_2, "sRGB", linear) {};
+    sRGB_(bool linear_) :sRGBBase_(D65_2, "sRGB", linear_) {};
 
 private:
     void setParameter() CV_OVERRIDE
@@ -333,7 +333,7 @@ private:
 class AdobeRGB_ : public AdobeRGBBase_
 {
 public:
-    AdobeRGB_(bool linear = false) :AdobeRGBBase_(D65_2, "AdobeRGB", linear) {};
+    AdobeRGB_(bool linear_ = false) :AdobeRGBBase_(D65_2, "AdobeRGB", linear_) {};
 
 private:
     void setParameter() CV_OVERRIDE
@@ -438,7 +438,7 @@ private:
 class REC_709_RGB_ : public sRGBBase_
 {
 public:
-    REC_709_RGB_(bool linear) :sRGBBase_(D65_2, "REC_709_RGB", linear) {};
+    REC_709_RGB_(bool linear_) :sRGBBase_(D65_2, "REC_709_RGB", linear_) {};
 
 private:
     void setParameter() CV_OVERRIDE
@@ -460,7 +460,7 @@ private:
 class REC_2020_RGB_ : public sRGBBase_
 {
 public:
-    REC_2020_RGB_(bool linear) :sRGBBase_(D65_2, "REC_2020_RGB", linear) {};
+    REC_2020_RGB_(bool linear_) :sRGBBase_(D65_2, "REC_2020_RGB", linear_) {};
 
 private:
     void setParameter() CV_OVERRIDE

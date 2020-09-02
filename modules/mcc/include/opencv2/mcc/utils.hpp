@@ -49,7 +49,7 @@ cv::Mat rgb2gray(cv::Mat rgb);
 
 /* *\ brief function for elementWise operation
    *\ param src the input array, type of cv::Mat
-   *\ lambda a for operation 
+   *\ lambda a for operation
 */
 template<typename F>
 cv::Mat elementWise(const cv::Mat& src, F&& lambda)
@@ -88,7 +88,7 @@ cv::Mat elementWise(const cv::Mat& src, F&& lambda)
 
 /* *\ brief function for channel operation
    *\ param src the input array, type of cv::Mat
-   *\ lambda the function for operation 
+   *\ lambda the function for operation
 */
 template<typename F>
 cv::Mat channelWise(const cv::Mat& src, F&& lambda)
@@ -151,7 +151,7 @@ cv::Mat maskCopyTo(const cv::Mat& src, const cv::Mat& mask)
     {
         auto it_src = src.begin<double>(), end_src = src.end<double>();
         auto it_dst = dst.begin<double>();
-        for (; it_src != end_src; ++it_src, ++it_mask) 
+        for (; it_src != end_src; ++it_src, ++it_mask)
         {
             if (*it_mask)
             {
@@ -165,9 +165,9 @@ cv::Mat maskCopyTo(const cv::Mat& src, const cv::Mat& mask)
     {
         auto it_src = src.begin<cv::Vec3d>(), end_src = src.end<cv::Vec3d>();
         auto it_dst = dst.begin<cv::Vec3d>();
-        for (; it_src != end_src; ++it_src, ++it_mask) 
+        for (; it_src != end_src; ++it_src, ++it_mask)
         {
-            if (*it_mask) 
+            if (*it_mask)
             {
                 (*it_dst) = (*it_src);
                 ++it_dst;

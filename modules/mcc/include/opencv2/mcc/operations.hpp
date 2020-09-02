@@ -71,7 +71,7 @@ public:
         return multiple(abc, M);
     };
 
-    /* *\ brief add function will conbine this operation 
+    /* *\ brief add function will conbine this operation
      *          with  other  linear transformation operation*/
     void add(const Operation& other)
     {
