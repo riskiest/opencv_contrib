@@ -26,24 +26,41 @@
  * SOFTWARE.
  */
 
-#ifndef _MCC_PRECOMP_HPP
-#define _MCC_PRECOMP_HPP
 
-#include <limits>
+#include "opencv2/mcc/io.hpp"
+namespace cv
+{
+namespace ccm
+{
+IO::IO(std::string illuminant_, std::string observer_) :illuminant(illuminant_), observer(observer_) {};
 
-#include <opencv2/core.hpp>
-#include <opencv2/imgproc.hpp>
-#include <opencv2/calib3d.hpp>
-#include <opencv2/dnn.hpp>
+bool IO::operator<(const IO& other) const
+{
+    return (illuminant < other.illuminant || ((illuminant == other.illuminant) && (observer < other.observer)));
+}
 
+bool IO::operator==(const IO& other) const
+{
+    return illuminant == other.illuminant && observer == other.observer;
+};
 
-#include <vector>
-#include <string>
-#include <mutex> // std::mutex
+// data from https://en.wikipedia.org/wiki/Standard_illuminant.
+std::vector<double> xyY2XYZ(const std::vector<double>& xyY)
+{
+    double Y = xyY.size() >= 3 ? xyY[2] : 1;
+    return { Y * xyY[0] / xyY[1], Y, Y / xyY[1] * (1 - xyY[0] - xyY[1]) };
+}
 
-#include "opencv2/mcc.hpp"
+/* *\ brief function to get illuminants*/
+std::map <IO, std::vector<double>> getIlluminant()
+{
+    std::map <IO, std::vector<double>>  illuminants_;
+    for (auto it = illuminants_xy.begin(); it != illuminants_xy.end(); ++it)
+    {
+        illuminants_[it->first] = xyY2XYZ(it->second);
+    }
+    return illuminants_;
+}
 
-
-#include "common.hpp"
-
-#endif //_MCC_PRECOMP_HPP
+} // namespace ccm
+} // namespace cv

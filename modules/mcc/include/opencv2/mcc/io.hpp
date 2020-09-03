@@ -29,10 +29,8 @@
 #ifndef __OPENCV_MCC_IO_HPP__
 #define __OPENCV_MCC_IO_HPP__
 
-#include <string>
-#include <iostream>
-#include <map>
 #include <opencv2/core.hpp>
+#include <map>
 
 namespace cv
 {
@@ -41,28 +39,16 @@ namespace ccm
 
 /* *\ brief Io is the meaning of illuminant and observer. See notes of ccm.hpp
  *          for supported list for illuminant and observer*/
-class IO
+class CV_EXPORTS IO
 {
 public:
-
     std::string illuminant;
     std::string observer;
-
-    IO() {};
-
-    IO(std::string illuminant_, std::string observer_) :illuminant(illuminant_), observer(observer_) {};
-
-    virtual ~IO() {};
-
-    bool operator<(const IO& other) const
-    {
-        return (illuminant < other.illuminant || ((illuminant == other.illuminant) && (observer < other.observer)));
-    }
-
-    bool operator==(const IO& other) const
-    {
-        return illuminant == other.illuminant && observer == other.observer;
-    };
+    IO(){};
+    IO(std::string illuminant_, std::string observer_) ;
+    virtual ~IO(){};
+    bool operator<(const IO& other) const;
+    bool operator==(const IO& other) const;
 };
 
 const IO A_2("A", "2"), A_10("A", "10"),
@@ -73,6 +59,7 @@ const IO A_2("A", "2"), A_10("A", "10"),
     E_2("E", "2"), E_10("E", "10");
 
 // data from https://en.wikipedia.org/wiki/Standard_illuminant.
+//const static std::map<IO, std::vector<double>> illuminants_xy;
 const static std::map<IO, std::vector<double>> illuminants_xy =
 {
     {A_2, { 0.44757, 0.40745 }}, {A_10, { 0.45117, 0.40594 }},
@@ -83,26 +70,13 @@ const static std::map<IO, std::vector<double>> illuminants_xy =
     {E_2, { 1 / 3, 1 / 3 }}, {E_10, { 1 / 3, 1 / 3 }},
 };
 
-std::vector<double> xyY2XYZ(const std::vector<double>& xyY);
-std::vector<double> xyY2XYZ(const std::vector<double>& xyY)
-{
-    double Y = xyY.size() >= 3 ? xyY[2] : 1;
-    return { Y * xyY[0] / xyY[1], Y, Y / xyY[1] * (1 - xyY[0] - xyY[1]) };
-}
+CV_EXPORTS std::vector<double>  xyY2XYZ(const std::vector<double>& xyY);
 
 /* *\ brief function to get illuminants*/
-static std::map <IO, std::vector<double>> getIlluminant();
-static std::map <IO, std::vector<double>> getIlluminant()
-{
-    std::map <IO, std::vector<double>>  illuminants;
-    for (auto it = illuminants_xy.begin(); it != illuminants_xy.end(); ++it)
-    {
-        illuminants[it->first] = xyY2XYZ(it->second);
-    }
-    return illuminants;
-}
+CV_EXPORTS std::map <IO, std::vector<double>>  getIlluminant();
 
 const std::map<IO, std::vector<double> >  illuminants = getIlluminant();
+
 } // namespace ccm
 } // namespace cv
 

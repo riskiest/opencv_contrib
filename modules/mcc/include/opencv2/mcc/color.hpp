@@ -30,9 +30,9 @@
 #define __OPENCV_MCC_COLOR_HPP__
 
 #include <map>
-#include "opencv2/mcc/colorspace.hpp"
-#include "opencv2/mcc/distance.hpp"
-#include "opencv2/mcc/utils.hpp"
+#include "colorspace.hpp"
+#include "distance.hpp"
+#include "utils.hpp"
 
 namespace cv
 {
@@ -42,7 +42,7 @@ namespace ccm
 /* *\ brief Color defined by color_values and color space
 */
 
-class Color
+class CV_EXPORTS Color
 {
 public:
 
@@ -50,11 +50,11 @@ public:
        *\ param colored mask of colored color
        *\ param history storage of historical conversion
     */
-    cv::Mat colors;
-    const ColorSpace& cs;
-    cv::Mat grays;
-    cv::Mat colored;
-    std::map<ColorSpace, std::shared_ptr<Color>> history;
+    CV_PROP_RW cv::Mat colors;
+    CV_PROP_RW const ColorSpace& cs;
+    CV_PROP_RW cv::Mat grays;
+    CV_PROP_RW cv::Mat colored;
+    CV_PROP_RW std::map<ColorSpace, std::shared_ptr<Color>> history;
 
     Color(cv::Mat colors_, const ColorSpace& cs_) :colors(colors_), cs(cs_) {};
 
@@ -67,62 +67,27 @@ public:
        *\ param other type of ColorSpace.
        *\ return Color.
     */
-    Color to(const ColorSpace& other, CAM method = BRADFORD, bool save = true)
-    {
-        if (history.count(other) == 1)
-        {
-
-            return *history[other];
-        }
-        if (cs.relate(other))
-        {
-            return Color(cs.relation(other).run(colors), other);
-        }
-        Operations ops;
-        ops.add(cs.to).add(XYZ(cs.io).cam(other.io, method)).add(other.from);
-        std::shared_ptr<Color> color(new Color(ops.run(colors), other));
-        if (save)
-        {
-            history[other] = color;
-        }
-        return *color;
-    }
+    CV_WRAP Color to(const ColorSpace& other, CAM method = BRADFORD, bool save = true);
 
     /* *\ brief Channels split.
        *\ return each channel.
     */
-    cv::Mat channel(cv::Mat m, int i)
-    {
-        cv::Mat dchannels[3];
-        split(m, dchannels);
-        return dchannels[i];
-    }
+    CV_WRAP cv::Mat channel(cv::Mat m, int i);
 
     /* *\ brief To Gray.
     */
-    cv::Mat toGray(IO io, CAM method = BRADFORD, bool save = true)
-    {
-        XYZ xyz(io);
-        return channel(this->to(xyz, method, save).colors, 1);
-    }
+    CV_WRAP cv::Mat toGray(IO io, CAM method = BRADFORD, bool save = true);
 
     /* *\ brief To Luminant.
     */
-    cv::Mat toLuminant(IO io, CAM method = BRADFORD, bool save = true)
-    {
-        Lab lab(io);
-        return channel(this->to(lab, method, save).colors, 0);
-    }
+    CV_WRAP cv::Mat toLuminant(IO io, CAM method = BRADFORD, bool save = true);
 
     /* *\ brief Diff without IO.
        *\ param other type of Color.
        *\ param method type of distance.
        *\ return distance between self and other
     */
-    cv::Mat diff(Color& other, DISTANCE_TYPE method = CIE2000)
-    {
-        return diff(other, cs.io, method);
-    }
+    CV_WRAP cv::Mat diff(Color& other, DISTANCE_TYPE method = CIE2000);
 
     /* *\ brief Diff with IO.
        *\ param other type of Color.
@@ -130,52 +95,18 @@ public:
        *\ param method type of distance.
        *\ return distance between self and other
     */
-    cv::Mat diff(Color& other, IO io, DISTANCE_TYPE method = CIE2000)
-    {
-        Lab lab(io);
-        switch (method)
-        {
-        case cv::ccm::CIE76:
-        case cv::ccm::CIE94_GRAPHIC_ARTS:
-        case cv::ccm::CIE94_TEXTILES:
-        case cv::ccm::CIE2000:
-        case cv::ccm::CMC_1TO1:
-        case cv::ccm::CMC_2TO1:
-            return distance(to(lab).colors, other.to(lab).colors, method);
-        case cv::ccm::RGB:
-            return distance(to(*cs.nl).colors, other.to(*cs.nl).colors, method);
-        case cv::ccm::RGBL:
-            return distance(to(*cs.l).colors, other.to(*cs.l).colors, method);
-        default:
-            throw std::invalid_argument { "Wrong method!" };
-            break;
-        }
-    }
+    CV_WRAP cv::Mat diff(Color& other, IO io, DISTANCE_TYPE method = CIE2000);
 
     /* *\ brief Calculate gray mask.
     */
-    void getGray(double JDN = 2.0)
-    {
-        cv::Mat lab = to(Lab_D65_2).colors;
-        cv::Mat gray(colors.size(), colors.type());
-        int fromto[] = { 0,0, -1,1, -1,2 };
-        mixChannels(&lab, 1, &gray, 1, fromto, 3);
-        cv::Mat d = distance(lab, gray, CIE2000);
-        this->grays = d < JDN;
-        this->colored = ~grays;
-    }
+    CV_WRAP void getGray(double JDN = 2.0);
 
     /* *\ brief Operator for mask copy.
     */
-    Color operator[](cv::Mat mask)
-    {
-        return Color(maskCopyTo(colors, mask), cs);
-    }
+    CV_WRAP Color operator[](cv::Mat mask);
 
-    Color operator=(Color inp)
-    {
-        return inp;
-    }
+    CV_WRAP Color operator=(Color inp);
+
 };
 
 

@@ -26,24 +26,68 @@
  * SOFTWARE.
  */
 
-#ifndef _MCC_PRECOMP_HPP
-#define _MCC_PRECOMP_HPP
+#include "precomp.hpp"
 
-#include <limits>
+namespace cv
+{
+namespace ccm
+{
 
-#include <opencv2/core.hpp>
-#include <opencv2/imgproc.hpp>
-#include <opencv2/calib3d.hpp>
-#include <opencv2/dnn.hpp>
+cv::Mat Operation::operator()(cv::Mat& abc)
+{
+    if (!linear)
+    {
+        return f(abc);
+    }
+    if (M.empty())
+    {
+        return abc;
+    }
+    return multiple(abc, M);
+};
 
+void Operation::add(const Operation& other)
+{
+    if (M.empty())
+    {
+        M = other.M.clone();
+    }
+    else
+    {
+        M = M * other.M;
+    }
+};
 
-#include <vector>
-#include <string>
-#include <mutex> // std::mutex
+void Operation::clear()
+{
+    M = cv::Mat();
+};
 
-#include "opencv2/mcc.hpp"
+Operations& Operations::add(const Operations& other)
+{
+    ops.insert(ops.end(), other.ops.begin(), other.ops.end());
+    return *this;
+};
 
+cv::Mat Operations::run(cv::Mat abc)
+{
+    Operation hd;
+    for (auto& op : ops)
+    {
+        if (op.linear)
+        {
+            hd.add(op);
+        }
+        else
+        {
+            abc = hd(abc);
+            hd.clear();
+            abc = op(abc);
+        }
+    }
+    abc = hd(abc);
+    return abc;
+};
 
-#include "common.hpp"
-
-#endif //_MCC_PRECOMP_HPP
+} // namespace ccm
+} // namespace cv
