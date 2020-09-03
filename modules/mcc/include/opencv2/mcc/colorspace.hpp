@@ -69,7 +69,6 @@ public:
     CV_WRAP virtual Operations relation(const ColorSpace& /*other*/) const;
 
     bool operator<(const ColorSpace& other)const;
-
 };
 
 /* *\ brief Base of RGB color space;
