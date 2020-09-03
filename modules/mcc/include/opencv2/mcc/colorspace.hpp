@@ -69,6 +69,7 @@ public:
     CV_WRAP virtual Operations relation(const ColorSpace& /*other*/) const;
 
     bool operator<(const ColorSpace& other)const;
+
 };
 
 /* *\ brief Base of RGB color space;
@@ -110,7 +111,6 @@ public:
        *\ param rgbl type of RGBBase_.
     */
     CV_WRAP void bind(RGBBase_& rgbl);
-
 private:
     virtual void setParameter() {};
 
@@ -196,6 +196,7 @@ public:
 
 private:
     void setParameter() CV_OVERRIDE;
+
 };
 
 /* *\ brief Adobe RGB color space.
@@ -219,6 +220,7 @@ public:
 
 private:
     void setParameter() CV_OVERRIDE;
+
 };
 
 /* *\ brief ProPhoto RGB color space.
