@@ -47,6 +47,22 @@ enum DISTANCE_TYPE {
     RGBL
 };
 
+double deltaCIE76(cv::Vec3d lab1, cv::Vec3d lab2);
+double deltaCIE94(cv::Vec3d lab1, cv::Vec3d lab2, double kH = 1.0,
+                  double kC = 1.0, double kL = 1.0, double k1 = 0.045,
+                  double k2 = 0.015);
+double deltaCIE94GraphicArts(cv::Vec3d lab1, cv::Vec3d lab2);
+double toRad(double degree);
+double deltaCIE94Textiles(cv::Vec3d lab1, cv::Vec3d lab2);
+double deltaCIEDE2000_(cv::Vec3d lab1, cv::Vec3d lab2, double kL = 1.0,
+                       double kC = 1.0, double kH = 1.0);
+double deltaCIEDE2000(cv::Vec3d lab1, cv::Vec3d lab2);
+double deltaCMC(cv::Vec3d lab1, cv::Vec3d lab2, double kL = 1, double kC = 1);
+double deltaCMC1To1(cv::Vec3d lab1, cv::Vec3d lab2);
+double deltaCMC2To1(cv::Vec3d lab1, cv::Vec3d lab2);
+cv::Mat distance(cv::Mat src, cv::Mat ref, DISTANCE_TYPE distance_type);
+
+
 /* *\ brief  distance between two points in formula CIE76
    *\ param lab1 a 3D vector
    *\ param lab2 a 3D vector
@@ -101,7 +117,6 @@ CV_EXPORTS double deltaCMC1To1(cv::Vec3d lab1, cv::Vec3d lab2);
 CV_EXPORTS double deltaCMC2To1(cv::Vec3d lab1, cv::Vec3d lab2);
 
 CV_EXPORTS cv::Mat distance(cv::Mat src, cv::Mat ref, DISTANCE_TYPE distance_type);
-
 }  // namespace ccm
 }  // namespace cv
 
