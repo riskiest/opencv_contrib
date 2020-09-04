@@ -61,6 +61,7 @@ std::map <IO, std::vector<double>> getIlluminant()
     }
     return illuminants_;
 }
+std::map<IO, std::vector<double>> illuminants = getIlluminant();
 
 } // namespace ccm
 } // namespace cv

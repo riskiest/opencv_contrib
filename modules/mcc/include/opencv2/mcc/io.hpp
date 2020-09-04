@@ -59,7 +59,6 @@ const IO A_2("A", "2"), A_10("A", "10"),
     E_2("E", "2"), E_10("E", "10");
 
 // data from https://en.wikipedia.org/wiki/Standard_illuminant.
-//const static std::map<IO, std::vector<double>> illuminants_xy;
 const static std::map<IO, std::vector<double>> illuminants_xy =
 {
     {A_2, { 0.44757, 0.40745 }}, {A_10, { 0.45117, 0.40594 }},
@@ -70,12 +69,12 @@ const static std::map<IO, std::vector<double>> illuminants_xy =
     {E_2, { 1 / 3, 1 / 3 }}, {E_10, { 1 / 3, 1 / 3 }},
 };
 
-CV_EXPORTS_W std::vector<double>  xyY2XYZ(const std::vector<double>& xyY);
+std::vector<double> xyY2XYZ(const std::vector<double>& xyY);
 
 /* *\ brief function to get illuminants*/
-CV_EXPORTS_W std::map <IO, std::vector<double>>  getIlluminant();
+std::map <IO, std::vector<double>> getIlluminant();
 
-const std::map<IO, std::vector<double> >  illuminants = getIlluminant();
+extern std::map<IO, std::vector<double>> illuminants;
 
 } // namespace ccm
 } // namespace cv

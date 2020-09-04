@@ -275,6 +275,7 @@ void REC_2020_RGB_::setParameter()
     gamma = 1 / 0.45;
 }
 
+
 sRGB_ sRGB = sRGB_(false);
 sRGB_ sRGBL = sRGB_(true);
 AdobeRGB_ AdobeRGB = AdobeRGB_(false);
@@ -291,7 +292,6 @@ REC_709_RGB_ REC_709_RGB = REC_709_RGB_(false);
 REC_709_RGB_ REC_709_RGBL = REC_709_RGB_(true);
 REC_2020_RGB_ REC_2020_RGB = REC_2020_RGB_(false);
 REC_2020_RGB_ REC_2020_RGBL = REC_2020_RGB_(true);
-
 
 ColorSpaceInitial::ColorSpaceInitial()
 {

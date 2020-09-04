@@ -231,24 +231,24 @@ class CV_EXPORTS_W ColorCorrectionModel
 {
 public:
     // detected colors, the referenceand the RGB colorspace for conversion
-    CV_PROP_RW cv::Mat src;
-    CV_PROP_RW Color dst;
-    CV_PROP_RW RGBBase_ &cs;
+    cv::Mat src;
+    Color dst;
+    RGBBase_ &cs;
 
     // ccm type and shape
-    CV_PROP_RW CCM_TYPE ccm_type;
-    CV_PROP_RW int shape;
+    CCM_TYPE ccm_type;
+    int shape;
 
     // linear method and distance
-    CV_PROP_RW std::shared_ptr<Linear> linear;
-    CV_PROP_RW DISTANCE_TYPE distance;
+    std::shared_ptr<Linear> linear;
+    DISTANCE_TYPE distance;
 
-    CV_PROP_RW cv::Mat weights;
-    CV_PROP_RW cv::Mat ccm;
-    CV_PROP_RW cv::Mat ccm0;
+    cv::Mat weights;
+    cv::Mat ccm;
+    cv::Mat ccm0;
 
-    CV_PROP_RW int max_count;
-    CV_PROP_RW double epsilon;
+    int max_count;
+    double epsilon;
 
 
     ColorCorrectionModel(cv::Mat src_, Color dst_, RGBBase_ &cs_, CCM_TYPE ccm_type_, DISTANCE_TYPE distance_, LINEAR_TYPE linear_type,
@@ -260,19 +260,19 @@ public:
        *\ param inp the input array, type of cv::Mat.
        *\ return the output array, type of cv::Mat
     */
-    CV_WRAP cv::Mat prepare(const cv::Mat &inp);
+    cv::Mat prepare(const cv::Mat &inp);
 
     /* *\ brief Fitting nonlinear - optimization initial value by white balance.
        *        see CCM.pdf for details.
        *\ return the output array, type of cv::Mat
     */
-    CV_WRAP cv::Mat initialWhiteBalance(void);
+    cv::Mat initialWhiteBalance(void);
 
     /* *\ brief Fitting nonlinear-optimization initial value by least square.
        *        see CCM.pdf for details
        *\ param fit if fit is True, return optimalization for rgbl distance function.
     */
-    CV_WRAP void initialLeastSquare(bool fit = false);
+    void initialLeastSquare(bool fit = false);
 
     /* *\ brief Loss function base on cv::MinProblemSolver::Function.
        *        see details in https://github.com/opencv/opencv/blob/master/modules/core/include/opencv2/core/optim.hpp
@@ -317,13 +317,13 @@ public:
        *        see details in https://github.com/opencv/opencv/blob/master/modules/core/include/opencv2/core/optim.hpp
        *        Set terminal criteria for solver is possible.
     */
-    CV_WRAP void fitting(void);
+    void fitting(void);
 
     /* *\ brief Infer using fitting ccm.
        *\ param img the input image, type of cv::Mat.
        *\ return the output array, type of cv::Mat.
     */
-    CV_WRAP cv::Mat infer(const cv::Mat &img, bool islinear = false);
+    cv::Mat infer(const cv::Mat &img, bool islinear = false);
 
     /* *\ brief Infer image and output as an BGR image with uint8 type.
        *        mainly for test or debug.
@@ -332,7 +332,7 @@ public:
        *\ param islinear if linearize or not.
        *\ return the output array, type of cv::Mat.
     */
-    CV_WRAP cv::Mat inferImage(std::string imgfile, bool islinear = false);
+    cv::Mat inferImage(std::string imgfile, bool islinear = false);
 
 private:
     cv::Mat mask;

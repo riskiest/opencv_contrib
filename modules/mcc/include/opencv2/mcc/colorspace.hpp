@@ -25,7 +25,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
+#pragma once
 #ifndef __OPENCV_MCC_COLORSPACE_HPP__
 #define __OPENCV_MCC_COLORSPACE_HPP__
 
@@ -46,13 +46,13 @@ namespace ccm
 class CV_EXPORTS_W ColorSpace
 {
 public:
-    CV_PROP_RW IO io;
-    CV_PROP_RW std::string type;
-    CV_PROP_RW bool linear;
-    CV_PROP_RW Operations to;
-    CV_PROP_RW Operations from;
-    CV_PROP_RW ColorSpace* l = 0;
-    CV_PROP_RW ColorSpace* nl = 0;
+    IO io;
+    std::string type;
+    bool linear;
+    Operations to;
+    Operations from;
+    ColorSpace* l;
+    ColorSpace* nl;
 
     ColorSpace() {};
 
@@ -64,12 +64,13 @@ public:
         nl = 0;
     };
 
-    CV_WRAP virtual bool relate(const ColorSpace& other) const;
+    virtual bool relate(const ColorSpace& other) const;
 
-    CV_WRAP virtual Operations relation(const ColorSpace& /*other*/) const;
+    virtual Operations relation(const ColorSpace& /*other*/) const;
 
     bool operator<(const ColorSpace& other)const;
 };
+
 
 /* *\ brief Base of RGB color space;
    *        the argument values are from AdobeRGB;
@@ -79,16 +80,16 @@ class CV_EXPORTS_W RGBBase_ : public ColorSpace
 {
 public:
     //primaries
-    CV_PROP_RW double xr;
-    CV_PROP_RW double yr;
-    CV_PROP_RW double xg;
-    CV_PROP_RW double yg;
-    CV_PROP_RW double xb;
-    CV_PROP_RW double yb;
-    CV_PROP_RW MatFunc toL;
-    CV_PROP_RW MatFunc fromL;
-    CV_PROP_RW cv::Mat M_to;
-    CV_PROP_RW cv::Mat M_from;
+    double xr;
+    double yr;
+    double xg;
+    double yg;
+    double xb;
+    double yb;
+    MatFunc toL;
+    MatFunc fromL;
+    cv::Mat M_to;
+    cv::Mat M_from;
 
     using ColorSpace::ColorSpace;
 
@@ -100,16 +101,16 @@ public:
        *\ param other type of ColorSpace.
        *\ return Operations.
     */
-    CV_WRAP Operations relation(const ColorSpace& other) const CV_OVERRIDE;
+    Operations relation(const ColorSpace& other) const CV_OVERRIDE;
 
     /* *\ brief Initial operations.
     */
-    CV_WRAP void init();
+    void init();
 
     /* *\ brief Produce color space instance with linear and non-linear versions.
        *\ param rgbl type of RGBBase_.
     */
-    CV_WRAP void bind(RGBBase_& rgbl);
+    void bind(RGBBase_& rgbl);
 private:
     virtual void setParameter() {};
 
@@ -149,12 +150,12 @@ class CV_EXPORTS_W sRGBBase_ : public RGBBase_
 {
 public:
     using RGBBase_::RGBBase_;
-    CV_PROP_RW double a;
-    CV_PROP_RW double gamma;
-    CV_PROP_RW double alpha;
-    CV_PROP_RW double beta;
-    CV_PROP_RW double phi;
-    CV_PROP_RW double K0;
+    double a;
+    double gamma;
+    double alpha;
+    double beta;
+    double phi;
+    double K0;
 
 private:
     /* *\ brief linearization parameters
@@ -280,7 +281,6 @@ private:
     void setParameter() CV_OVERRIDE;
 };
 
-
 extern sRGB_ sRGB, sRGBL;
 extern AdobeRGB_ AdobeRGB, AdobeRGBL;
 extern WideGamutRGB_ WideGamutRGB, WideGamutRGBL;
@@ -290,13 +290,12 @@ extern AppleRGB_ AppleRGB, AppleRGBL;
 extern REC_709_RGB_ REC_709_RGB, REC_709_RGBL;
 extern REC_2020_RGB_ REC_2020_RGB, REC_2020_RGBL;
 
-
 /* *\ brief Bind RGB with RGBL.
 */
 class CV_EXPORTS_W ColorSpaceInitial
 {
 public:
-    CV_WRAP ColorSpaceInitial();
+    ColorSpaceInitial();
 };
 
 extern ColorSpaceInitial color_space_initial;
@@ -326,7 +325,7 @@ class CV_EXPORTS_W XYZ :public ColorSpace
 {
 public:
     XYZ(IO io_) : ColorSpace(io_, "XYZ", true) {};
-    CV_WRAP Operations cam(IO dio, CAM method = BRADFORD);
+    Operations cam(IO dio, CAM method = BRADFORD);
 
 private:
     /* *\ brief Get cam.

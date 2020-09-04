@@ -50,11 +50,11 @@ public:
        *\ param colored mask of colored color
        *\ param history storage of historical conversion
     */
-    CV_PROP_RW cv::Mat colors;
-    CV_PROP_RW const ColorSpace& cs;
-    CV_PROP_RW cv::Mat grays;
-    CV_PROP_RW cv::Mat colored;
-    CV_PROP_RW std::map<ColorSpace, std::shared_ptr<Color>> history;
+    cv::Mat colors;
+    const ColorSpace& cs;
+    cv::Mat grays;
+    cv::Mat colored;
+    std::map<ColorSpace, std::shared_ptr<Color>> history;
 
     Color(cv::Mat colors_, const ColorSpace& cs_) :colors(colors_), cs(cs_) {};
 
@@ -67,27 +67,27 @@ public:
        *\ param other type of ColorSpace.
        *\ return Color.
     */
-    CV_WRAP Color to(const ColorSpace& other, CAM method = BRADFORD, bool save = true);
+    Color to(const ColorSpace& other, CAM method = BRADFORD, bool save = true);
 
     /* *\ brief Channels split.
        *\ return each channel.
     */
-    CV_WRAP cv::Mat channel(cv::Mat m, int i);
+    cv::Mat channel(cv::Mat m, int i);
 
     /* *\ brief To Gray.
     */
-    CV_WRAP cv::Mat toGray(IO io, CAM method = BRADFORD, bool save = true);
+    cv::Mat toGray(IO io, CAM method = BRADFORD, bool save = true);
 
     /* *\ brief To Luminant.
     */
-    CV_WRAP cv::Mat toLuminant(IO io, CAM method = BRADFORD, bool save = true);
+    cv::Mat toLuminant(IO io, CAM method = BRADFORD, bool save = true);
 
     /* *\ brief Diff without IO.
        *\ param other type of Color.
        *\ param method type of distance.
        *\ return distance between self and other
     */
-    CV_WRAP cv::Mat diff(Color& other, DISTANCE_TYPE method = CIE2000);
+    cv::Mat diff(Color& other, DISTANCE_TYPE method = CIE2000);
 
     /* *\ brief Diff with IO.
        *\ param other type of Color.
@@ -95,17 +95,17 @@ public:
        *\ param method type of distance.
        *\ return distance between self and other
     */
-    CV_WRAP cv::Mat diff(Color& other, IO io, DISTANCE_TYPE method = CIE2000);
+    cv::Mat diff(Color& other, IO io, DISTANCE_TYPE method = CIE2000);
 
     /* *\ brief Calculate gray mask.
     */
-    CV_WRAP void getGray(double JDN = 2.0);
+    void getGray(double JDN = 2.0);
 
     /* *\ brief Operator for mask copy.
     */
-    CV_WRAP Color operator[](cv::Mat mask);
+    Color operator[](cv::Mat mask);
 
-    CV_WRAP Color operator=(Color inp);
+    Color operator=(Color inp);
 
 };
 

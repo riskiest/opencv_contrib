@@ -46,9 +46,9 @@ typedef std::function<cv::Mat(cv::Mat)> MatFunc;
 class CV_EXPORTS_W Operation
 {
 public:
-    CV_PROP_RW bool linear;
-    CV_PROP_RW cv::Mat M;
-    CV_PROP_RW MatFunc f;
+    bool linear;
+    cv::Mat M;
+    MatFunc f;
 
     Operation() : linear(true), M(cv::Mat()) {};
 
@@ -63,9 +63,9 @@ public:
 
     /* *\ brief add function will conbine this operation
      *          with  other  linear transformation operation*/
-    CV_WRAP void add(const Operation& other);
+    void add(const Operation& other);
 
-    CV_WRAP void clear();
+    void clear();
 };
 
 const Operation IDENTITY_OP( [](cv::Mat x) {return x; } );
@@ -73,7 +73,7 @@ const Operation IDENTITY_OP( [](cv::Mat x) {return x; } );
 class CV_EXPORTS_W Operations
 {
 public:
-    CV_PROP_RW std::vector<Operation> ops;
+    std::vector<Operation> ops;
 
     Operations() :ops{ } {};
 
@@ -85,7 +85,7 @@ public:
     Operations& add(const Operations& other);
 
     /* *\ brief run operations to make color conversion*/
-    CV_WRAP cv::Mat run(cv::Mat abc);
+    cv::Mat run(cv::Mat abc);
 };
 
 const Operations IDENTITY_OPS{ IDENTITY_OP };

@@ -53,8 +53,8 @@ enum LINEAR_TYPE
 class CV_EXPORTS_W Polyfit
 {
 public:
-    CV_PROP_RW int deg;
-    CV_PROP_RW cv::Mat p;
+    int deg;
+    cv::Mat p;
 
     Polyfit() {};
 
@@ -75,8 +75,8 @@ private:
 class CV_EXPORTS_W LogPolyfit
 {
 public:
-    CV_PROP_RW int deg;
-    CV_PROP_RW Polyfit p;
+    int deg;
+    Polyfit p;
 
     LogPolyfit() {};
 
@@ -101,7 +101,7 @@ public:
     /* *\ brief Inference.
        *\ param inp the input array, type of cv::Mat.
     */
-    CV_WRAP virtual cv::Mat linearize(cv::Mat inp);
+    virtual cv::Mat linearize(cv::Mat inp);
 
     /* *\brief Evaluate linearization model.
     */
@@ -118,11 +118,11 @@ class CV_EXPORTS_W LinearIdentity : public Linear {};
 class CV_EXPORTS_W LinearGamma : public Linear
 {
 public:
-    CV_PROP_RW double gamma;
+    double gamma;
 
     LinearGamma(double gamma_) :gamma(gamma_) {};
 
-    cv::Mat CV_WRAP linearize(cv::Mat inp) CV_OVERRIDE;
+    cv::Mat linearize(cv::Mat inp) CV_OVERRIDE;
 };
 
 /* *\ brief Linearization.
@@ -213,7 +213,7 @@ public:
    *\ param cs type of RGBBase_.
    *\ param linear_type type of linear.
 */
-CV_EXPORTS_W std::shared_ptr<Linear>  getLinear(double gamma, int deg, cv::Mat src, Color dst, cv::Mat mask, RGBBase_ cs, LINEAR_TYPE linear_type);
+std::shared_ptr<Linear> getLinear(double gamma, int deg, cv::Mat src, Color dst, cv::Mat mask, RGBBase_ cs, LINEAR_TYPE linear_type);
 
 } // namespace ccm
 } // namespace cv
