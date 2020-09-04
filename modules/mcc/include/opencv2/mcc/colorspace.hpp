@@ -43,7 +43,7 @@ namespace ccm
 
 /* *\ brief Basic class for ColorSpace.
 */
-class CV_EXPORTS ColorSpace
+class CV_EXPORTS_W ColorSpace
 {
 public:
     CV_PROP_RW IO io;
@@ -75,7 +75,7 @@ public:
    *        the argument values are from AdobeRGB;
    *        Data from https://en.wikipedia.org/wiki/Adobe_RGB_color_space
 */
-class CV_EXPORTS RGBBase_ : public ColorSpace
+class CV_EXPORTS_W RGBBase_ : public ColorSpace
 {
 public:
     //primaries
@@ -132,7 +132,7 @@ private:
 
 /* *\ brief Base of Adobe RGB color space;
 */
-class CV_EXPORTS AdobeRGBBase_ : public RGBBase_
+class CV_EXPORTS_W AdobeRGBBase_ : public RGBBase_
 {
 public:
     using RGBBase_::RGBBase_;
@@ -145,7 +145,7 @@ private:
 
 /* *\ brief Base of sRGB color space;
 */
-class CV_EXPORTS sRGBBase_ : public RGBBase_
+class CV_EXPORTS_W sRGBBase_ : public RGBBase_
 {
 public:
     using RGBBase_::RGBBase_;
@@ -188,7 +188,7 @@ private:
 /* *\ brief sRGB color space.
    *        data from https://en.wikipedia.org/wiki/SRGB.
 */
-class CV_EXPORTS sRGB_ :public sRGBBase_
+class CV_EXPORTS_W sRGB_ :public sRGBBase_
 {
 public:
     sRGB_(bool linear_) :sRGBBase_(D65_2, "sRGB", linear_) {};
@@ -199,7 +199,7 @@ private:
 
 /* *\ brief Adobe RGB color space.
 */
-class CV_EXPORTS AdobeRGB_ : public AdobeRGBBase_
+class CV_EXPORTS_W AdobeRGB_ : public AdobeRGBBase_
 {
 public:
     AdobeRGB_(bool linear_ = false) :AdobeRGBBase_(D65_2, "AdobeRGB", linear_) {};
@@ -211,7 +211,7 @@ private:
 /* *\ brief Wide-gamut RGB color space.
    *        data from https://en.wikipedia.org/wiki/Wide-gamut_RGB_color_space.
 */
-class CV_EXPORTS WideGamutRGB_ : public AdobeRGBBase_
+class CV_EXPORTS_W WideGamutRGB_ : public AdobeRGBBase_
 {
 public:
     WideGamutRGB_(bool linear_ = false) :AdobeRGBBase_(D50_2, "WideGamutRGB", linear_) {};
@@ -223,7 +223,7 @@ private:
 /* *\ brief ProPhoto RGB color space.
    *        data from https://en.wikipedia.org/wiki/ProPhoto_RGB_color_space.
 */
-class CV_EXPORTS ProPhotoRGB_ : public AdobeRGBBase_
+class CV_EXPORTS_W ProPhotoRGB_ : public AdobeRGBBase_
 {
 public:
     ProPhotoRGB_(bool linear_ = false) :AdobeRGBBase_(D50_2, "ProPhotoRGB", linear_) {};
@@ -235,7 +235,7 @@ private:
 /* *\ brief DCI-P3 RGB color space.
    *        data from https://en.wikipedia.org/wiki/DCI-P3.
 */
-class CV_EXPORTS DCI_P3_RGB_ : public AdobeRGBBase_
+class CV_EXPORTS_W DCI_P3_RGB_ : public AdobeRGBBase_
 {
 public:
     DCI_P3_RGB_(bool linear_ = false) :AdobeRGBBase_(D65_2, "DCI_P3_RGB", linear_) {};
@@ -247,7 +247,7 @@ private:
 /* *\ brief Apple RGB color space.
    *        data from http://www.brucelindbloom.com/index.html?WorkingSpaceInfo.html.
 */
-class CV_EXPORTS AppleRGB_ : public AdobeRGBBase_
+class CV_EXPORTS_W AppleRGB_ : public AdobeRGBBase_
 {
 public:
     AppleRGB_(bool linear_ = false) :AdobeRGBBase_(D65_2, "AppleRGB", linear_) {};
@@ -259,7 +259,7 @@ private:
 /* *\ brief REC_709 RGB color space.
    *        data from https://en.wikipedia.org/wiki/Rec._709.
 */
-class CV_EXPORTS REC_709_RGB_ : public sRGBBase_
+class CV_EXPORTS_W REC_709_RGB_ : public sRGBBase_
 {
 public:
     REC_709_RGB_(bool linear_) :sRGBBase_(D65_2, "REC_709_RGB", linear_) {};
@@ -271,7 +271,7 @@ private:
 /* *\ brief REC_2020 RGB color space.
    *        data from https://en.wikipedia.org/wiki/Rec._2020.
 */
-class CV_EXPORTS REC_2020_RGB_ : public sRGBBase_
+class CV_EXPORTS_W REC_2020_RGB_ : public sRGBBase_
 {
 public:
     REC_2020_RGB_(bool linear_) :sRGBBase_(D65_2, "REC_2020_RGB", linear_) {};
@@ -293,7 +293,7 @@ extern REC_2020_RGB_ REC_2020_RGB, REC_2020_RGBL;
 
 /* *\ brief Bind RGB with RGBL.
 */
-class CV_EXPORTS ColorSpaceInitial
+class CV_EXPORTS_W ColorSpaceInitial
 {
 public:
     CV_WRAP ColorSpaceInitial();
@@ -322,7 +322,7 @@ const static std::map <CAM, std::vector< cv::Mat >> MAs = {
 /* *\ brief XYZ color space.
    *        Chromatic adaption matrices.
 */
-class CV_EXPORTS XYZ :public ColorSpace
+class CV_EXPORTS_W XYZ :public ColorSpace
 {
 public:
     XYZ(IO io_) : ColorSpace(io_, "XYZ", true) {};
@@ -346,7 +346,7 @@ const XYZ XYZ_D50_2(D50_2);
 
 /* *\ brief Lab color space.
 */
-class CV_EXPORTS Lab :public ColorSpace
+class CV_EXPORTS_W Lab :public ColorSpace
 {
 public:
     Lab(IO io_);

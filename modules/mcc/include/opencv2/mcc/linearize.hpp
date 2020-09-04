@@ -50,7 +50,7 @@ enum LINEAR_TYPE
 
 /* *\ brief Polyfit model.
 */
-class CV_EXPORTS Polyfit
+class CV_EXPORTS_W Polyfit
 {
 public:
     CV_PROP_RW int deg;
@@ -72,7 +72,7 @@ private:
 
 /* *\ brief Logpolyfit model.
 */
-class CV_EXPORTS LogPolyfit
+class CV_EXPORTS_W LogPolyfit
 {
 public:
     CV_PROP_RW int deg;
@@ -91,7 +91,7 @@ public:
 
 /* *\ brief Linearization base.
 */
-class CV_EXPORTS Linear
+class CV_EXPORTS_W Linear
 {
 public:
     Linear() {};
@@ -111,11 +111,11 @@ public:
 /* *\ brief Linearization identity.
    *        make no change.
 */
-class CV_EXPORTS LinearIdentity : public Linear {};
+class CV_EXPORTS_W LinearIdentity : public Linear {};
 
 /* *\ brief Linearization gamma correction.
 */
-class CV_EXPORTS LinearGamma : public Linear
+class CV_EXPORTS_W LinearGamma : public Linear
 {
 public:
     CV_PROP_RW double gamma;
@@ -213,7 +213,7 @@ public:
    *\ param cs type of RGBBase_.
    *\ param linear_type type of linear.
 */
-CV_EXPORTS std::shared_ptr<Linear>  getLinear(double gamma, int deg, cv::Mat src, Color dst, cv::Mat mask, RGBBase_ cs, LINEAR_TYPE linear_type);
+CV_EXPORTS_W std::shared_ptr<Linear>  getLinear(double gamma, int deg, cv::Mat src, Color dst, cv::Mat mask, RGBBase_ cs, LINEAR_TYPE linear_type);
 
 } // namespace ccm
 } // namespace cv

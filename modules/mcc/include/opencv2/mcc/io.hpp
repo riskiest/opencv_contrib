@@ -39,7 +39,7 @@ namespace ccm
 
 /* *\ brief Io is the meaning of illuminant and observer. See notes of ccm.hpp
  *          for supported list for illuminant and observer*/
-class CV_EXPORTS IO
+class CV_EXPORTS_W IO
 {
 public:
     std::string illuminant;
@@ -70,10 +70,10 @@ const static std::map<IO, std::vector<double>> illuminants_xy =
     {E_2, { 1 / 3, 1 / 3 }}, {E_10, { 1 / 3, 1 / 3 }},
 };
 
-CV_EXPORTS std::vector<double>  xyY2XYZ(const std::vector<double>& xyY);
+CV_EXPORTS_W std::vector<double>  xyY2XYZ(const std::vector<double>& xyY);
 
 /* *\ brief function to get illuminants*/
-CV_EXPORTS std::map <IO, std::vector<double>>  getIlluminant();
+CV_EXPORTS_W std::map <IO, std::vector<double>>  getIlluminant();
 
 const std::map<IO, std::vector<double> >  illuminants = getIlluminant();
 

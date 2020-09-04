@@ -43,7 +43,7 @@ typedef std::function<cv::Mat(cv::Mat)> MatFunc;
 /* *\ brief Operation class contains some operarions used for color space
    *        conversion containing linear transformation and non-linear transformation
  */
-class CV_EXPORTS Operation
+class CV_EXPORTS_W Operation
 {
 public:
     CV_PROP_RW bool linear;
@@ -70,7 +70,7 @@ public:
 
 const Operation IDENTITY_OP( [](cv::Mat x) {return x; } );
 
-class CV_EXPORTS Operations
+class CV_EXPORTS_W Operations
 {
 public:
     CV_PROP_RW std::vector<Operation> ops;

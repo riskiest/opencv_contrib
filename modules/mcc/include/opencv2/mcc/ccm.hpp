@@ -227,7 +227,7 @@ enum INITIAL_METHOD_TYPE
 /* *\ brief Core class of ccm model.
    *        produce a ColorCorrectionModel instance for inference.
 */
-class CV_EXPORTS ColorCorrectionModel
+class CV_EXPORTS_W ColorCorrectionModel
 {
 public:
     // detected colors, the referenceand the RGB colorspace for conversion

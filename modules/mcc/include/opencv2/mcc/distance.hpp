@@ -52,7 +52,7 @@ enum DISTANCE_TYPE {
    *\ param lab2 a 3D vector
    *\ return distance between lab1 and lab2
 */
-CV_EXPORTS double deltaCIE76(cv::Vec3d lab1, cv::Vec3d lab2);
+CV_EXPORTS_W double deltaCIE76(cv::Vec3d lab1, cv::Vec3d lab2);
 
 /* *\ brief  distance between two points in formula CIE94
    *\ param lab1 a 3D vector
@@ -64,15 +64,15 @@ CV_EXPORTS double deltaCIE76(cv::Vec3d lab1, cv::Vec3d lab2);
    *\ param k2 second scale parameter
    *\ return distance between lab1 and lab2
 */
-CV_EXPORTS double deltaCIE94(cv::Vec3d lab1, cv::Vec3d lab2, double kH = 1.0,
+CV_EXPORTS_W double deltaCIE94(cv::Vec3d lab1, cv::Vec3d lab2, double kH = 1.0,
                   double kC = 1.0, double kL = 1.0, double k1 = 0.045,
                   double k2 = 0.015);
 
-CV_EXPORTS double deltaCIE94GraphicArts(cv::Vec3d lab1, cv::Vec3d lab2);
+CV_EXPORTS_W double deltaCIE94GraphicArts(cv::Vec3d lab1, cv::Vec3d lab2);
 
-CV_EXPORTS double toRad(double degree);
+CV_EXPORTS_W double toRad(double degree);
 
-CV_EXPORTS double deltaCIE94Textiles(cv::Vec3d lab1, cv::Vec3d lab2);
+CV_EXPORTS_W double deltaCIE94Textiles(cv::Vec3d lab1, cv::Vec3d lab2);
 
 /* *\ brief  distance between two points in formula CIE2000
    *\ param lab1 a 3D vector
@@ -82,10 +82,10 @@ CV_EXPORTS double deltaCIE94Textiles(cv::Vec3d lab1, cv::Vec3d lab2);
    *\ param kH Hue scale
    *\ return distance between lab1 and lab2
 */
-CV_EXPORTS double deltaCIEDE2000_(cv::Vec3d lab1, cv::Vec3d lab2, double kL = 1.0,
+CV_EXPORTS_W double deltaCIEDE2000_(cv::Vec3d lab1, cv::Vec3d lab2, double kL = 1.0,
                        double kC = 1.0, double kH = 1.0);
 
-CV_EXPORTS double deltaCIEDE2000(cv::Vec3d lab1, cv::Vec3d lab2);
+CV_EXPORTS_W double deltaCIEDE2000(cv::Vec3d lab1, cv::Vec3d lab2);
 
 /* *\ brief  distance between two points in formula CMC
    *\ param lab1 a 3D vector
@@ -94,11 +94,11 @@ CV_EXPORTS double deltaCIEDE2000(cv::Vec3d lab1, cv::Vec3d lab2);
    *\ param kC Chroma scale
    *\ return distance between lab1 and lab2
 */
-CV_EXPORTS double deltaCMC(cv::Vec3d lab1, cv::Vec3d lab2, double kL = 1, double kC = 1);
-CV_EXPORTS double deltaCMC1To1(cv::Vec3d lab1, cv::Vec3d lab2);
-CV_EXPORTS double deltaCMC2To1(cv::Vec3d lab1, cv::Vec3d lab2);
+CV_EXPORTS_W double deltaCMC(cv::Vec3d lab1, cv::Vec3d lab2, double kL = 1, double kC = 1);
+CV_EXPORTS_W double deltaCMC1To1(cv::Vec3d lab1, cv::Vec3d lab2);
+CV_EXPORTS_W double deltaCMC2To1(cv::Vec3d lab1, cv::Vec3d lab2);
 
-CV_EXPORTS cv::Mat distance(cv::Mat src, cv::Mat ref, DISTANCE_TYPE distance_type);
+CV_EXPORTS_W cv::Mat distance(cv::Mat src, cv::Mat ref, DISTANCE_TYPE distance_type);
 }  // namespace ccm
 }  // namespace cv
 

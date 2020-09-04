@@ -38,21 +38,21 @@ namespace ccm {
  *\ param src the input array,type of cv::Mat.
  *\ param gamma a constant for gamma correction.
  */
-CV_EXPORTS double gammaCorrection_(const double& element, const double& gamma);
+CV_EXPORTS_W double gammaCorrection_(const double& element, const double& gamma);
 
-CV_EXPORTS cv::Mat gammaCorrection(const cv::Mat& src, const double& gamma);
+CV_EXPORTS_W cv::Mat gammaCorrection(const cv::Mat& src, const double& gamma);
 
 /* *\ brief maskCopyTo a function to delete unsatisfied elementwise.
  *\ param src the input array, type of cv::Mat.
  *\ param mask operation mask that used to choose satisfided elementwise.
  */
-CV_EXPORTS cv::Mat maskCopyTo(const cv::Mat& src, const cv::Mat& mask);
+CV_EXPORTS_W cv::Mat maskCopyTo(const cv::Mat& src, const cv::Mat& mask);
 
 /* *\ brief multiple the function used to compute an array with n channels
  *mulipied by ccm. \ param src the input array, type of cv::Mat. \ param ccm the
  *ccm matrix to make color correction.
  */
-CV_EXPORTS cv::Mat multiple(const cv::Mat& xyz, const cv::Mat& ccm);
+CV_EXPORTS_W cv::Mat multiple(const cv::Mat& xyz, const cv::Mat& ccm);
 
 /* *\ brief multiple the function used to get the mask of saturated colors,
             colors between low and up will be choosed.
@@ -60,13 +60,13 @@ CV_EXPORTS cv::Mat multiple(const cv::Mat& xyz, const cv::Mat& ccm);
    *\ param low  the threshold to choose saturated colors
    *\ param up  the threshold to choose saturated colors
 */
-CV_EXPORTS cv::Mat saturate(cv::Mat& src, const double& low, const double& up);
+CV_EXPORTS_W cv::Mat saturate(cv::Mat& src, const double& low, const double& up);
 
 /* *\ brief rgb2gray it is an approximation grayscale function for relative RGB
  *color space, see Miscellaneous.pdf for details; \ param rgb the input array,
  *type of cv::Mat.
  */
-CV_EXPORTS cv::Mat rgb2gray(cv::Mat rgb);
+CV_EXPORTS_W cv::Mat rgb2gray(cv::Mat rgb);
 
 /* *\ brief function for elementWise operation
  *\ param src the input array, type of cv::Mat
@@ -142,7 +142,7 @@ cv::Mat distanceWise(cv::Mat& src, cv::Mat& ref, F&& lambda)
     return dst;
 }
 
-CV_EXPORTS cv::Mat multiple(const cv::Mat& xyz, const cv::Mat& ccm);
+CV_EXPORTS_W cv::Mat multiple(const cv::Mat& xyz, const cv::Mat& ccm);
 
 const static cv::Mat m_gray = (cv::Mat_<double>(3, 1) << 0.2126, 0.7152, 0.0722);
 

@@ -42,7 +42,7 @@ namespace ccm
 /* *\ brief Color defined by color_values and color space
 */
 
-class CV_EXPORTS Color
+class CV_EXPORTS_W Color
 {
 public:
 
