@@ -78,7 +78,7 @@ public:
 class CV_EXPORTS RGBBase_ : public ColorSpace
 {
 public:
-    primaries
+    //primaries
     CV_PROP_RW double xr;
     CV_PROP_RW double yr;
     CV_PROP_RW double xg;
