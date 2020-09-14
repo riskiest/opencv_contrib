@@ -26,58 +26,42 @@
  * SOFTWARE.
  */
 
-#ifndef __OPENCV_MCC_IO_HPP__
-#define __OPENCV_MCC_IO_HPP__
 
-#include <opencv2/core.hpp>
-#include <map>
-
+#include "opencv2/mcc/io.hpp"
 namespace cv
 {
 namespace ccm
 {
+IO::IO(std::string illuminant_, std::string observer_) :illuminant(illuminant_), observer(observer_) {};
 
-/* *\ brief Io is the meaning of illuminant and observer. See notes of ccm.hpp
- *          for supported list for illuminant and observer*/
-class CV_EXPORTS_W IO
+bool IO::operator<(const IO& other) const
 {
-public:
-    std::string illuminant;
-    std::string observer;
-    IO(){};
-    IO(std::string illuminant_, std::string observer_) ;
-    virtual ~IO(){};
-    bool operator<(const IO& other) const;
-    bool operator==(const IO& other) const;
-};
+    return (illuminant < other.illuminant || ((illuminant == other.illuminant) && (observer < other.observer)));
+}
 
-const IO A_2("A", "2"), A_10("A", "10"),
-    D50_2("D50", "2"), D50_10("D50", "10"),
-    D55_2("D55", "2"), D55_10("D55", "10"),
-    D65_2("D65", "2"), D65_10("D65", "10"),
-    D75_2("D75", "2"), D75_10("D75", "10"),
-    E_2("E", "2"), E_10("E", "10");
+bool IO::operator==(const IO& other) const
+{
+    return illuminant == other.illuminant && observer == other.observer;
+};
 
 // data from https://en.wikipedia.org/wiki/Standard_illuminant.
-const static std::map<IO, std::vector<double>> illuminants_xy =
+std::vector<double> xyY2XYZ(const std::vector<double>& xyY)
 {
-    {A_2, { 0.44757, 0.40745 }}, {A_10, { 0.45117, 0.40594 }},
-    {D50_2, { 0.34567, 0.35850 }}, {D50_10, { 0.34773, 0.35952 }},
-    {D55_2, { 0.33242, 0.34743 }}, {D55_10, { 0.33411, 0.34877 }},
-    {D65_2, { 0.31271, 0.32902 }}, {D65_10, { 0.31382, 0.33100 }},
-    {D75_2, { 0.29902, 0.31485 }}, {D75_10, { 0.45117, 0.40594 }},
-    {E_2, { 1 / 3, 1 / 3 }}, {E_10, { 1 / 3, 1 / 3 }},
-};
-
-std::vector<double> xyY2XYZ(const std::vector<double>& xyY);
+    double Y = xyY.size() >= 3 ? xyY[2] : 1;
+    return { Y * xyY[0] / xyY[1], Y, Y / xyY[1] * (1 - xyY[0] - xyY[1]) };
+}
 
 /* *\ brief function to get illuminants*/
-std::map <IO, std::vector<double>> getIlluminant();
-
-extern std::map<IO, std::vector<double>> illuminants;
+std::map <IO, std::vector<double>> getIlluminant()
+{
+    std::map <IO, std::vector<double>>  illuminants_;
+    for (auto it = illuminants_xy.begin(); it != illuminants_xy.end(); ++it)
+    {
+        illuminants_[it->first] = xyY2XYZ(it->second);
+    }
+    return illuminants_;
+}
+std::map<IO, std::vector<double>> illuminants = getIlluminant();
 
 } // namespace ccm
 } // namespace cv
-
-
-#endif
