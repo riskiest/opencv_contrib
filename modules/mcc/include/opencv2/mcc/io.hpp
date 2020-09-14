@@ -74,7 +74,7 @@ std::vector<double> xyY2XYZ(const std::vector<double>& xyY);
 /* *\ brief function to get illuminants*/
 std::map <IO, std::vector<double>> getIlluminant();
 
-extern std::map<IO, std::vector<double>> illuminants;
+CV_EXPORTS_W extern std::map<IO, std::vector<double>> illuminants;
 
 } // namespace ccm
 } // namespace cv
