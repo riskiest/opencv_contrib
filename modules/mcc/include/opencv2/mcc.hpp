@@ -36,6 +36,7 @@
 #include "mcc/io.hpp"
 #include "mcc/operations.hpp"
 #include "mcc/colorspace.hpp"
+#include "mcc/distance.hpp"
 
 /** @defgroup mcc Macbeth Chart module
 
