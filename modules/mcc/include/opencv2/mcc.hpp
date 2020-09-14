@@ -34,6 +34,7 @@
 #include "mcc/checker_model.hpp"
 #include "mcc/utils.hpp"
 #include "mcc/io.hpp"
+#include "mcc/operations.hpp"
 
 /** @defgroup mcc Macbeth Chart module
 
