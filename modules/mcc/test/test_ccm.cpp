@@ -65,7 +65,7 @@ TEST(CV_ccmRunColorCorrection, test_model)
         Vec3d(0.66743106, 0.24076803, 0.03394333),
         Vec3d(0.47141286, 0.13592419, 0.01362205),
         Vec3d(0.17377101, 0.03256864, 0.00203026));
-        ASSERT_EQ(src_rgbl, model.src_rgbl);
+    ASSERT_MAT_NEAR(src_rgbl, model.src_rgbl, 1e-4);
 
     Mat dst_rgbl = (Mat_<double>(24, 1) <<
         Vec3d(0.17303173, 0.08211037, 0.05672686),
@@ -92,19 +92,19 @@ TEST(CV_ccmRunColorCorrection, test_model)
         Vec3d(0.19007357, 0.19186587, 0.19308397),
         Vec3d(0.08529188, 0.08887994, 0.09257601),
         Vec3d(0.0303193, 0.03113818, 0.03274845));
-    ASSERT_EQ(dst_rgbl, model.dst_rgbl);
+    ASSERT_MAT_NEAR(dst_rgbl, model.dst_rgbl, 1e-4);
 
     Mat wb = (Mat_<double>(3, 3) <<0.49129477, 0., 0., 0., 0.85751383, 0., 0., 0., 3.15992365);
-    ASSERT_EQ(wb, model.initial_white_balance());
+    ASSERT_MAT_NEAR(wb, model.initial_white_balance(), 1e-4);
 
     Mat ccm = (Mat_<double>(3, 3) <<
             0.7409443, 0.35435699, 0.33689953,
             0.20459753, 0.84167375, 0.07261064,
             -0.20511954, 0.1767599, 3.10780907);
-    ASSERT_EQ(ccm, model.ccm);
+    ASSERT_MAT_NEAR(ccm, model.ccm, 1e-4);
 
-    ASSERT_FALSE(model.weights);
-    ASSERT_EQ(model.mask, Mat::ones(24, 1, CV_8U));
+    ASSERT_TRUE(model.weights.empty());
+    ASSERT_MAT_NEAR(model.mask, Mat::ones(24, 1, CV_8U), 0.0);
 }
 
 TEST(CV_ccmRunColorCorrection, test_masks_weights_1)
@@ -116,30 +116,30 @@ TEST(CV_ccmRunColorCorrection, test_masks_weights_1)
                             0.7, 0, 0, 0.8, 0, 0);
     ColorCorrectionModel model1(s / 255, Macbeth_D50_2, weights_list=weights_list_, weights_coeff=1.5);
 
-    ASSERT_EQ(model1.weights, (Mat_<double>(1, 8) <<
+    ASSERT_MAT_NEAR(model1.weights, (Mat_<double>(1, 8) <<
                             1.15789474, 1.26315789, 1.36842105, 1.47368421,
-                            0.52631579, 0.63157895, 0.73684211, 0.84210526));
-    ASSERT_EQ(model1.mask, (Mat_<double>(24, 1) <<
+                            0.52631579, 0.63157895, 0.73684211, 0.84210526), 1e-4);
+    ASSERT_MAT_NEAR(model1.mask, (Mat_<double>(24, 1) <<
                             True, False, False, True, False, False,
                             True, False, False, True, False, False,
                             True, False, False, True, False, False,
-                            True, False, False, True, False, False));
+                            True, False, False, True, False, False), 0.0);
 }
 
 TEST(CV_ccmRunColorCorrection, test_masks_weights_1)
 {
     ColorCorrectionModel model2(s / 255, Macbeth_D50_2, weights_coeff=1.5, saturated_threshold={0.05, 0.93});
 
-    ASSERT_EQ(model2.weights, (Mat_<double>(24, 1) <<
+    ASSERT_MAT_NEAR(model2.weights, (Mat_<double>(24, 1) <<
                             0.65554256, 1.49454705, 1.00499244, 0.79735434, 1.16327759,
                             1.68623868, 1.37973155, 0.73213388, 1.0169629, 0.47430246,
                             1.70312161, 0.45414218, 1.15910007, 0.7540434, 1.05049802,
-                            1.04551645, 1.54082353, 1.02453421, 0.6015915, 0.26154558));
-    ASSERT_EQ(model2.mask, (Mat_<bool>(24, 1) <<
+                            1.04551645, 1.54082353, 1.02453421, 0.6015915, 0.26154558), 1e-4);
+    ASSERT_MAT_NEAR(model2.mask, (Mat_<bool>(24, 1) <<
                             True, True, True, True, True, True,
                             True, True, True, True, False, True,
                             True, True, True, False, True, True,
-                            False, False, True, True, True, True]));
+                            False, False, True, True, True, True]), 0.0);
 }
 
 } // namespace
