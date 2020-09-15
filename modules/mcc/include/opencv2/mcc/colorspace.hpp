@@ -39,6 +39,7 @@ namespace cv
 {
 namespace ccm
 {
+
 /* *\ brief Basic class for ColorSpace.
 */
 class CV_EXPORTS_W ColorSpace
@@ -103,6 +104,7 @@ public:
     /* *\ brief Initial operations.
     */
     void init();
+
     /* *\ brief Produce color space instance with linear and non-linear versions.
        *\ param rgbl type of RGBBase_.
     */
@@ -159,6 +161,7 @@ private:
        *        see ColorSpace.pdf for details;
     */
     virtual void calLinear() CV_OVERRIDE;
+
     /* *\ brief Used by toLFunc.
     */
     double toLFuncEW(double& x);
@@ -173,6 +176,7 @@ private:
     /* *\ brief Used by fromLFunc.
     */
     double fromLFuncEW(double& x);
+
     /* *\ brief Delinearization.
        *        see ColorSpace.pdf for details.
        *\ param rgbl the input array, type of cv::Mat.
@@ -322,6 +326,7 @@ class CV_EXPORTS_W  XYZ :public ColorSpace
 public:
     XYZ(IO io_) : ColorSpace(io_, "XYZ", true) {};
     Operations cam(IO dio, CAM method = BRADFORD);
+
 private:
     /* *\ brief Get cam.
        *\ param sio the input IO of src.
@@ -343,6 +348,7 @@ class CV_EXPORTS_W Lab :public ColorSpace
 {
 public:
     Lab(IO io_);
+
 private:
     static constexpr double delta = (6. / 29.);
     static constexpr double m = 1. / (3. * delta * delta);
