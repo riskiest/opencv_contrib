@@ -273,7 +273,7 @@ public:
         *        see CCM.pdf for details.
         *\ return the output array, type of Mat
     */
-    Mat initialWhiteBalance(void);
+    void initialWhiteBalance(void);
 
     /* *\ brief Fitting nonlinear-optimization initial value by least square.
         *        see CCM.pdf for details
