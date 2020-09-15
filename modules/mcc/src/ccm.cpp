@@ -46,7 +46,6 @@ ColorCorrectionModel::ColorCorrectionModel(Mat src_, Color dst_, RGBBase_& cs_, 
     Mat saturate_mask = saturate(src, saturated_threshold[0], saturated_threshold[1]);
     this->linear = getLinear(gamma, deg, this->src, this->dst, saturate_mask, this->cs, linear_type);
     calWeightsMasks(weights_list, weights_coeff, saturate_mask);
-
     src_rgbl = this->linear->linearize(maskCopyTo(this->src, mask));
     dst.colors = maskCopyTo(dst.colors, mask);
     dst_rgbl = this->dst.to(*(this->cs.l)).colors;
@@ -131,7 +130,7 @@ void ColorCorrectionModel::calWeightsMasks(Mat weights_list, double weights_coef
     masked_len = (int)sum(mask)[0];
 }
 
-Mat ColorCorrectionModel::initialWhiteBalance(void)
+void ColorCorrectionModel::initialWhiteBalance(void)
 {
     Mat schannels[3];
     split(src_rgbl, schannels);
@@ -143,7 +142,7 @@ Mat ColorCorrectionModel::initialWhiteBalance(void)
     std::vector<double> initial_vec_(initial_vec.begin(), initial_vec.begin() + shape);
     Mat initial_white_balance = Mat(initial_vec_, true).reshape(0, shape / 3);
 
-    return initial_white_balance;
+    ccm0= initial_white_balance;
 }
 
 void ColorCorrectionModel::initialLeastSquare(bool fit)
