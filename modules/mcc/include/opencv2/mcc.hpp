@@ -32,12 +32,16 @@
 
 #include "mcc/checker_detector.hpp"
 #include "mcc/checker_model.hpp"
-#include "mcc/utils.hpp"
-#include "mcc/io.hpp"
-#include "mcc/operations.hpp"
-#include "mcc/colorspace.hpp"
-#include "mcc/distance.hpp"
-#include "mcc/color.hpp"
+
+//#include "mcc/utils.hpp"
+//#include "mcc/io.hpp"
+//#include "mcc/operations.hpp"
+//#include "mcc/colorspace.hpp"
+//#include "mcc/distance.hpp"
+//#include "mcc/color.hpp"
+//#include "mcc/linearize.hpp"
+
+#include "mcc/ccm.hpp"
 
 /** @defgroup mcc Macbeth Chart module
 
