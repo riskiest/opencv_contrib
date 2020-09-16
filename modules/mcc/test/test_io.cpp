@@ -34,7 +34,7 @@ TEST(CV_ccmIO, test_illuminants)
 {
     for (auto i = illuminants.begin(); i != illuminants.end(); ++i)
     {
-        ASSERT_EQ(illuminants[i->second], illuminants_test[i->second]);
+        ASSERT_EQ(illuminants[i->first], illuminants_test[i->first]);
     }
 }
 

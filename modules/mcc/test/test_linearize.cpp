@@ -9,7 +9,7 @@ namespace opencv_test
 namespace
 {
 
-Mat s = (Mat_<Vec3d>(24, 1) <<
+Mat s_origin = (Mat_<Vec3d>(24, 1) <<
         Vec3d(214.11, 98.67, 37.97),
         Vec3d(231.94, 153.1, 85.27),
         Vec3d(204.08, 143.71, 78.46),
@@ -34,11 +34,11 @@ Mat s = (Mat_<Vec3d>(24, 1) <<
         Vec3d(212.19, 133.49, 54.79),
         Vec3d(181.17, 102.94, 36.18),
         Vec3d(115.1, 53.77, 15.23));
-s = s / 255;
+Mat s = s_origin / 255;
 double gamma = 2.2;
 int deg = 3;
+
 Color color = Macbeth_D50_2;
-color.getGray();
 RGBBase_ cs = sRGB;
 Mat mask = saturate(s, 0.05, 0.93);
 
@@ -131,7 +131,7 @@ TEST(CV_ccmLinearize, test_color_polyfit)
         Vec3d(2.42877023e-01, 1.80918764e-01, 1.07292088e-01),
         Vec3d(2.34750448e-02, 9.15416417e-02, 5.56885760e-02),
         Vec3d(4.16360011e-02, 3.14799517e-02, 4.67810688e-02));
-
+    color.getGray();
     ASSERT_MAT_NEAR(LinearColor<Polyfit>(deg, s, color, mask, cs).linearize(s), y, 1e-4);
 }
 
@@ -162,7 +162,7 @@ TEST(CV_ccmLinearize, test_color_logpolyfit)
         Vec3d(0.19575899, 0.18007616, 0.0759408),
         Vec3d(0.05430091, 0.08966718, 0.06150038),
         Vec3d(0.02983422, 0.03045434, 0.03305337));
-
+    color.getGray();
     ASSERT_MAT_NEAR(LinearColor<LogPolyfit>(deg, s, color, mask, cs).linearize(s), y, 1e-4);
 }
 
@@ -193,7 +193,7 @@ TEST(CV_ccmLinearize, test_gray_polyfit)
         Vec3d(0.50753594, 0.14890516, 0.0422774),
         Vec3d(0.35705032, 0.05956936, 0.08964481),
         Vec3d(0.0893518, 0.04399409, 0.18717526));
-
+    color.getGray();
     ASSERT_MAT_NEAR(LinearGray<Polyfit>(deg, s, color, mask, cs).linearize(s), y, 1e-4);
 }
 
@@ -224,7 +224,7 @@ TEST(CV_ccmLinearize, test_gray_logpolyfit)
         Vec3d(4.56964629e-01, 1.47352730e-01, 4.13462335e-02),
         Vec3d(3.57831381e-01, 6.24515609e-02, 6.54872609e-01),
         Vec3d(8.92793201e-02, 4.38221622e-02, 3.22837394e+08));
-
+    color.getGray();
     ASSERT_MAT_NEAR(LinearGray<LogPolyfit>(deg, s, color, mask, cs).linearize(s)(cv::Rect(0, 0, 1, 23)), y(cv::Rect(0, 0, 1, 23)), 1e-4);
 }
 

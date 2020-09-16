@@ -32,15 +32,15 @@ TEST(CV_ccmUtils, test_saturate)
             0.3, 0.8, 0.4,
             0.7, 0.6, 0.2,
             1., 0.8, 0.5);
-    Mat y = (Mat_<bool>(1, 5) <<False, False, True, True, False);
+    Mat y = (Mat_<bool>(1, 5) <<false, false, true, true, false);
     ASSERT_MAT_NEAR(saturate(x, 0.2, 0.8), y, 0.0);
 }
 
 TEST(CV_ccmUtils, test_rgb2gray)
 {
     Mat x = (Mat_<double>(1, 3) <<0.2, 0.3, 0.4);
-    double y = 0.28596;
-    ASSERT_NEAR(rgb2gray(x), y, 1e-4);
+    Mat y = (Mat_<double>(1, 1) <<0.28596);
+    ASSERT_MAT_NEAR(rgb2gray(x), y, 1e-4);
 }
 
 } // namespace
