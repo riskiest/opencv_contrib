@@ -73,7 +73,7 @@ ColorCorrectionModel::ColorCorrectionModel(Mat src_, Color dst_, RGBBase_& cs_, 
         switch (initial_method_type)
         {
         case cv::ccm::WHITE_BALANCE:
-            initialWhiteBalance();
+            ccm0 = initialWhiteBalance();
             break;
         case cv::ccm::LEAST_SQUARE:
             initialLeastSquare();
